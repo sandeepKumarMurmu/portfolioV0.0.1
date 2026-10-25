@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark is the default (matches the wireframe). Values are "R G B" triplets. */
+:root {
+  --bg: 13 19 32;
+  --surface: 19 27 43;
+  --line: 38 50 74;
+  --ink: 241 245 251;
+  --muted: 154 168 194;
+  --accent: 79 107 196;
+  --chip: 26 39 66;
+  --chipink: 143 176 255;
+}
+
+:root:not(.dark) {
+  --bg: 244 246 251;
+  --surface: 255 255 255;
+  --line: 214 220 232;
+  --ink: 19 28 44;
+  --muted: 82 97 122;
+  --accent: 53 88 200;
+  --chip: 230 236 250;
+  --chipink: 36 71 184;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; color-scheme: dark; }
+  html:not(.dark) { color-scheme: light; }
+  body { @apply bg-bg font-sans text-ink antialiased; }
+  section[id] { @apply scroll-mt-20; }
+  :focus-visible { @apply outline outline-2 outline-offset-2 outline-chipink; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+  .section-title { @apply mb-10 text-center text-2xl font-bold tracking-tight sm:text-3xl; }
+  .card { @apply rounded-xl border border-line bg-surface p-5 sm:p-6; }
+  .chip { @apply inline-block rounded-md border border-line bg-chip px-2.5 py-1 text-xs text-chipink sm:text-sm; }
+  .btn-primary { @apply inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition hover:brightness-110; }
+  .btn-ghost { @apply inline-flex items-center justify-center rounded-lg border border-line px-5 py-2.5 text-sm font-medium transition hover:bg-chip; }
+}
+
+/* Skill cards: each card sets --c-dark / --c-light inline; --c follows the theme. */
+.skill-card { --c: var(--c-dark); }
+:root:not(.dark) .skill-card { --c: var(--c-light); }
